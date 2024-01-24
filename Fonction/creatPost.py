@@ -1,38 +1,45 @@
 import openai 
 import time
+import json
 import Fonction as mypackage
 
-async def creatPost(prompt):
+
+
+
+def creatPost(prompt):
     
-    mypackage.gptClient
+    client = openai.OpenAI(api_key=mypackage.OPENAI_API_KEY)
+
     # Ciblage de l'assistant a utilise
-    my_assistants = mypackage.gptClient.beta.assistants.retrieve(mypackage.gptIdAssistant)
-    print(my_assistants)
-
+    my_assistants = client.beta.assistants.retrieve(mypackage.gptIdAssistant)
+    #print(my_assistants)
+    
     # Création du thread pour la conversation avec l'assistant
-    thread = await openai.beta.thread.create()
+    thread = client.beta.threads.create()
 
-    await openai.beta.threads.messages.create(thread.id,{role:"user", content: prompt })
+    # Création du message
+    client.beta.threads.messages.create(thread.id,role="user", content=prompt )
 
-    run = await  openai.beta.threads.runs.create(
+    # Initialisation du thread de discution avec le bonne étudiant
+    run = client.beta.threads.runs.create(
         thread.id,
-        { assistant_id: mypackage.gptIdAssistant }
+        assistant_id= mypackage.gptIdAssistant
     )
 
-    runStatus = await openai.beta.threads.runs.retrieve(
-            thread.id,
-            run.id
-          )
+    # Envoi du message
+    runStatus = client.beta.threads.runs.retrieve(thread_id=thread.id,run_id=run.id)
     
+    # Attendre que l'ai réponde
     while runStatus.status != 'completed' :
-            await time.sleep(1)
-            runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+            time.sleep(1)
+            runStatus = client.beta.threads.runs.retrieve(thread_id=thread.id,run_id=run.id)
     
-    messagesResponse = await openai.beta.threads.messages.list(thread.id)
+    messagesResponse = client.beta.threads.messages.list(thread.id)
 
-    aiMessages =  [msg for msg in messagesResponse['data'] if msg['role'] == 'assistant']
-    
-    return aiMessages[aiMessages.length - 1].content[0].text.value;
+    # "Convestion de la réponde en JSON
+    messagesResponseJson = json.loads(messagesResponse.model_dump_json())
+
+    return  messagesResponseJson['data'][0]['content'][0]['text']['value']
 
 
 

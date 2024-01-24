@@ -2,7 +2,6 @@ import Fonction as mypackage
 from datetime import datetime 
 import asyncio
 
-asyncio.run(mypackage.creatPost('teste'))
 # Récupération de tout les publications programée notion
 allPage = mypackage.getDataBaseData()
 
@@ -11,8 +10,8 @@ toutLesPostesProgramme = {}
 
 for page in allPage:
 
-    page_id = page['id']
-    
+    page_id = page['id']    
+
     prompt_string = mypackage.extractStringFromPrompt(page)
     status_name   = mypackage.extractStatusName(page)
     start_date    = mypackage.extractStartDate(page)
@@ -42,8 +41,30 @@ for page_id, data in toutLesPostesProgramme.items():
         toutLesPosteDuJour[page_id] = data
 
 
-print(toutLesPosteDuJour)
+#print(toutLesPosteDuJour)
+
+prompt_value = toutLesPosteDuJour['7f4fb6e4-2c31-4147-9201-36e474bc90a2']['prompt']
+
+print("prompt Envoyer ")
+
+post = mypackage.creatPost(prompt=prompt_value)
+extracted_texts = []
+
+
+print("post Recu")
+
+print("---------------------------------------------------------------------------------------------------------------")
+
+print(post)
+
+print("---------------------------------------------------------------------------------------------------------------")
 
 
 
+for message in post:
 
+    if message == "content=" :
+        print(message)
+
+
+#print(post)
