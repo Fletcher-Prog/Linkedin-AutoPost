@@ -1,10 +1,22 @@
 import Fonction as mypackage
 
-def getDataBaseData():
+def getDataBaseData(fletchNews :bool):
+    
+
+    print("Récupération des ou du promps")
     
     allPage = []
     try:
-        results = mypackage.notion.databases.query(database_id=mypackage.database_id)
+        
+        if fletchNews :            
+            results = mypackage.notion.databases.query(database_id=mypackage.databaseIdFletchNews)
+            
+        else:
+            results = mypackage.notion.databases.query(database_id=mypackage.databaseIdFletchOil)
+
+            
+            
+            
         for page in results.get("results", []):
             
             allPage.append(page)
