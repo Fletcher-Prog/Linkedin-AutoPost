@@ -3,12 +3,13 @@ from datetime import datetime
 import time
 
 
-def start(fletchNews :bool):
 
+def start(fletchNews :bool):
+    
     while True :
         
-        if datetime.now().strftime("%H:%M:%S") == "00:00:00"   :         
-            print("1")
+        if datetime.now().strftime("%H:%M:%S") == "00:10:00"   :         
+
             # Récupération du prompts de création du poste 
             promptDesPosteDuJour = mypackage.recupToutLesPostesDuJour(fletchNews)
 
@@ -26,4 +27,4 @@ def start(fletchNews :bool):
             for idpost , promptValue in promptDesPosteDuJour.items():
                 heureDePublication = promptValue["hourStart"] 
             
-            mypackage.posteSurLinkedin(posteChoisi,heureDePublication)
+            mypackage.posteSurLinkedin(posteChoisi,heureDePublication,fletchNews)
