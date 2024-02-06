@@ -51,8 +51,8 @@ def posteSurLinkedin(poste,heureDePublication,fletchNews :bool):
 
             # Vérifier la réponse
             if response.status_code == 201:
-                print("Post créé avec succès.")
+                mypackage.logger.info("Post créé avec succès.")
             else:
-                print(f"Échec de la création du post: {response.content}")
+                mypackage.logger.info(f"Échec de la création du post: {response.content}")
             
             break

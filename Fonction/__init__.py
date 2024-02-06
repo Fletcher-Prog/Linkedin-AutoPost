@@ -15,3 +15,4 @@ from .extractStringFromPrompt   import *
 from .recupToutLesPostesDuJour  import *
 from .posteSurLinkedinAvecImage import *
 
+

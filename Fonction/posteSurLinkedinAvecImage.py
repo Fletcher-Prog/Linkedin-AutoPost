@@ -60,13 +60,13 @@ def posteSurLinkedinAvecImage(poste,heureDePublication,pathImage,fletchNews :boo
             
             # Vérification de la réponse d'upload
             if response_image_upload.status_code in [200, 201]:
-                print("Image PNG uploadée avec succès.")
+                mypackage.logger.info("Image PNG uploadée avec succès.")
                 
                 # Suivre la suite du processus pour créer le post avec l'image...
             else:
-                print(f"Échec de l'upload de l'image PNG. Statut: {response_image_upload.status_code}, Réponse: {response_image_upload.text}")
+                mypackage.logger.info(f"Échec de l'upload de l'image PNG. Statut: {response_image_upload.status_code}, Réponse: {response_image_upload.text}")
         else:
-            print(f"Échec de l'enregistrement de l'upload: Statut: {response_upload.status_code}, Réponse: {response_upload.text}")
+            mypackage.logger.info(f"Échec de l'enregistrement de l'upload: Statut: {response_upload.status_code}, Réponse: {response_upload.text}")
 
         headers = {
             'Authorization': f'Bearer {accessToken}',
@@ -111,6 +111,6 @@ def posteSurLinkedinAvecImage(poste,heureDePublication,pathImage,fletchNews :boo
 
         # Vérifier la réponse
         if response.status_code == 201:
-            print("Post avec image créé avec succès.")
+            mypackage.logger.info("Post avec image créé avec succès.")
         else:
-            print(f"Échec de la création du post avec image: {response.status_code}, Réponse: {response.text}")
+            mypackage.logger.info(f"Échec de la création du post avec image: {response.status_code}, Réponse: {response.text}")

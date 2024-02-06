@@ -23,4 +23,4 @@ def getDataBaseData(fletchNews :bool):
             
         return allPage  # This will print the raw data of each page (row) in the database
     except Exception as e:
-        print(f"An error occurred: {e}")
+        mypackage.logger.info(f"An error occurred: {e}")

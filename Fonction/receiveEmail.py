@@ -1,6 +1,7 @@
 import imaplib
 import email
 import Fonction as mypackage
+from random import randint
 
 def receiveEmail(object: str):
     # Paramètres de connexion
@@ -44,7 +45,9 @@ def receiveEmail(object: str):
             body = email_message.get_payload(decode=True)
             #print("Body:", body.decode())
     else:
-        print("Aucun email trouvé avec ce sujet.")
+        
+        if randint(1,7) == 1 :
+            mypackage.logger.info("Aucun email trouvé avec ce sujet.")
 
     # Déconnexion
     mail.logout()

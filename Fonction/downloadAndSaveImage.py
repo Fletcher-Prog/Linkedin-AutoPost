@@ -1,13 +1,14 @@
 import requests
+import Fonction as mypackage
 
-def downloadAndSaveImage(image_url, file_path):
-    response = requests.get(image_url)
+def downloadAndSaveImage(imageUrl, filePath):
+    response = requests.get(imageUrl)
     if response.status_code == 200:
-        with open(file_path, 'wb') as file:
+        with open(filePath, 'wb') as file:
             file.write(response.content)
 
-        print("Image télecharger et enregistre")
+        mypackage.logger.info("Image télecharger et enregistre")
         return True
     else:
-        print("Error lors du télecharger ou enregistrement de l'image")
+        mypackage.logger.info("Error lors du télecharger ou enregistrement de l'image")
         return False

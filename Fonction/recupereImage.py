@@ -13,5 +13,5 @@ def recupereImage(prompt:str):
     n=1,
   )
 
-  print("Image Génere")
+  mypackage.logger.info("Image Génere")
   return response.data[0].url

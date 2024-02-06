@@ -7,14 +7,14 @@ def traitementDesPostes(lesPosteDuJour):
 
         promptValue = promptValue['prompt']
             
-        print("prompt Envoyer ")
+        mypackage.logger.info("prompt Envoyer ")
         tabPost = mypackage.createTableauPost(prompt=promptValue)    
-        print("post Recu : ")
+        mypackage.logger.info("post Recu : ")
 
         # Envoye du mail avec les posts du jours est retourne l'objet du mail 
         objetMail = "Re: {}".format(mypackage.sendEmail(tabPost[0],tabPost[1],tabPost[2]))
 
-        print("Envoye du mail ")
+        mypackage.logger.info("Envoye du mail ")
 
         while True :
 
