@@ -24,10 +24,11 @@ def start(fletchNews :bool):
                 
             # Géneration de l'image pour le poste 
             #if randint(1,2) == 1 :                
-            
             prompImage = "Génere moi une image qui correspond a ce poste " + posteChoisi
             imageUrl = mypackage.recupereImage(prompt=prompImage)  
-            success = mypackage.downloadAndSaveImage(imageUrl, "./test.png")
+            success = mypackage.downloadAndSaveImage(imageUrl, "./test.png",fletchNews)
+            
             mypackage.posteSurLinkedinAvecImage( posteChoisi,heureDePublication,"./test.png",fletchNews )            
+
            
             #mypackage.posteSurLinkedin(posteChoisi,heureDePublication,fletchNews)

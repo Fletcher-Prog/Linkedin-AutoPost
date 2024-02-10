@@ -1,8 +1,14 @@
 import requests
 import Fonction as mypackage
 
-def downloadAndSaveImage(imageUrl, filePath):
+def downloadAndSaveImage(imageUrl, filePath,fletchNews :bool):
+    
     response = requests.get(imageUrl)
+
+    if fletchNews :
+        filePath = "./test01.png"
+    
+    
     if response.status_code == 200:
         with open(filePath, 'wb') as file:
             file.write(response.content)
