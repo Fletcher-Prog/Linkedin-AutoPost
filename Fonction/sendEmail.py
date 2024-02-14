@@ -3,7 +3,8 @@ from email.mime.multipart import MIMEMultipart
 import smtplib, ssl
 from datetime import datetime 
 import Fonction as mypackage
-
+import socket
+import time
 
 def sendEmail(post1,post2="",post3=""):
 
@@ -40,12 +41,27 @@ def sendEmail(post1,post2="",post3=""):
 
   # on crée la connexion
   context = ssl.create_default_context()
-  with smtplib.SMTP_SSL(smtpAddress, smtpPort, context=context) as server:
-    
-    # connexion au compte
-    server.login(emailAdress, emailPassword)
-    
-    # envoi du mail
-    server.sendmail(emailAdress, emailReceiver, message.as_string())
+  
+   # Gestion de l'absence de connection 
+  while True:      
 
-    return message["Subject"]
+      # Connexion au serveur IMAP et sélection de la boîte de réception
+      try:
+  
+        with smtplib.SMTP_SSL(smtpAddress, smtpPort, context=context) as server:
+          
+          # connexion au compte
+          server.login(emailAdress, emailPassword)
+          
+          # envoi du mail
+          server.sendmail(emailAdress, emailReceiver, message.as_string())
+          
+          return message["Subject"]
+      
+      except socket.gaierror as e:
+          mypackage.logger.info("Erreur lors de la connexion au serveur SMTP:")
+          time.sleep(600)
+      
+      except Exception as e:
+            mypackage.logger.info("Une erreur inattendue s'est produite:", e)
+      

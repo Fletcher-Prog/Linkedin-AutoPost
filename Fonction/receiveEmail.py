@@ -1,18 +1,34 @@
 import imaplib
 import email
+import time
 import Fonction as mypackage
 from random import randint
+import socket
+
 
 def receiveEmail(object: str):
+    
     # Paramètres de connexion
     host = mypackage.smtpAddress
     username = mypackage.emailAdress
     password = mypackage.emailPassword
+   
+   # Gestion de l'absence de connection 
+    while True:      
 
-    # Connexion au serveur IMAP et sélection de la boîte de réception
-    mail = imaplib.IMAP4_SSL(host)
-    mail.login(username, password)
-    mail.select("inbox")
+        # Connexion au serveur IMAP et sélection de la boîte de réception
+        try:
+            mail = imaplib.IMAP4_SSL(host)
+            mail.login(username, password)
+            mail.select("inbox")
+            break
+        
+        except socket.gaierror as e:
+            mypackage.logger.info("Erreur lors de la connexion au serveur IMAP:")
+            time.sleep(600)
+        
+        except Exception as e:
+            mypackage.logger.info("Une erreur inattendue s'est produite:", e)
 
     # Préparation de la requête de recherche
     mail.literal  = u'"{}"'.format(object).encode('utf-8')
