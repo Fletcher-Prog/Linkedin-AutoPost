@@ -39,3 +39,4 @@ def start(fletchNews :bool):
 
            
             #mypackage.posteSurLinkedin(posteChoisi,heureDePublication,fletchNews)
+            lancement = 2   
