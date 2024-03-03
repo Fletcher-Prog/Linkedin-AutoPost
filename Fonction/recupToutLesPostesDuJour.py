@@ -82,16 +82,7 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
                             break
 
                         if reponse == "4" :
-                            
-                            # Calcule du temp restant avant le relance du programe demain
-                            maintenant = datetime.now()                
-                            minuit = maintenant.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)          
-                            delta = minuit - maintenant                
-                            mypackage.sendEmail("Relance du programme dans {} minute soit a minuit".format(delta))
-
-                            time.sleep(int(delta.total_seconds()))
-                            break
-
+                            return -4
                         time.sleep(120)
 
                 else :

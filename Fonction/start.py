@@ -7,12 +7,19 @@ import time
 
 def start(fletchNews :bool):
     
+    lancement = 1
+    
     while True :
         
-        if datetime.now().strftime("%H:%M:%S") == "00:10:00"   :         
+        if datetime.now().strftime("%H:%M:%S") == "00:10:00" or lancement ==1   :         
 
             # Récupération du prompts de création du poste 
             promptDesPosteDuJour = mypackage.recupToutLesPostesDuJour(fletchNews)
+            
+            if promptDesPosteDuJour == -4 :
+                
+                lancement = 2                
+                break
 
 
             # Récupération du poste en fonction du choix fait par mail  
