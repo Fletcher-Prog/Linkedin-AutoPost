@@ -14,7 +14,6 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
             toutLesPostesProgramme = {}
 
             for page in allPage:
-
                 page_id = page['id']    
 
                 prompt_string = mypackage.extractStringFromPrompt(page)
@@ -34,20 +33,17 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
             dateDuJour = datetime.now().strftime("%Y-%m-%d")
 
             # Parcours de chaque element du tableau de donnée souhaité
-            for page_id, data in toutLesPostesProgramme.items():
-            
+            for page_id, data in toutLesPostesProgramme.items():            
                 # Formatage de l'heure et de la date comme je le souhaite
                 data["hourStart"] = data['startDate'].split("T")[1].split("+")[0].split(".")[0]
 
                 data["startDate"] = data['startDate'].split("T")[0]
 
-                if data["startDate"] == dateDuJour :
-                    
+                if data["startDate"] == dateDuJour :                   
                     toutLesPosteDuJour[page_id] = data
             
             # cas ou les nombre de post pour ajourd'hui est supérieure a 1
-            if len(toutLesPosteDuJour) >= 2:
-                
+            if len(toutLesPosteDuJour) >= 2:                   
                 # Permet de récupére le l'objet du mail afin de faire le teste par la suite
                 objetMail =  mypackage.sendEmail("Trop de poste son présent pour ajourd'hui merci de le réctifier")
 
@@ -57,9 +53,7 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
                     reponse = mypackage.receiveEmail("Re: {}".format(objetMail))
 
                     if reponse == "0":
-
                         mypackage.sendEmail("Relance du programme")
-
                         break
 
                     time.sleep(15)
@@ -75,14 +69,14 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
                         
                         reponse   = mypackage.receiveEmail("Re: {}".format(objetMail))
                         
-                        if reponse == "0":
-                            
+                        if reponse == "0": 
                             mypackage.sendEmail("Relance du programme")
-
                             break
 
-                        if reponse == "4" :
+                        if reponse == "4" :                          
+                            mypackage.sendEmail("Relance du programme demain")
                             return -4
+                        
                         time.sleep(120)
 
                 else :
