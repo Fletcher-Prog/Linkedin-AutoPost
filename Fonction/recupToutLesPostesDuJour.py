@@ -67,13 +67,15 @@ def recupToutLesPostesDuJour(fletchNews :bool) :
                     
                     while True :
                         
-                        reponse   = mypackage.receiveEmail("Re: {}".format(objetMail))
+                        reponse   = int(mypackage.receiveEmail("Re: {}".format(objetMail)))
                         
-                        if reponse == "0": 
+                        print(reponse)
+                        
+                        if reponse == 0: 
                             mypackage.sendEmail("Relance du programme")
                             break
 
-                        if reponse == "4" :                          
+                        if reponse == 4 :                          
                             mypackage.sendEmail("Relance du programme demain")
                             return -4
                         

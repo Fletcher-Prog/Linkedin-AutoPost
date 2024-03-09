@@ -7,7 +7,7 @@ import time
 
 def start(fletchNews :bool):
     
-    lancement = 2
+    lancement = 1
     
     # La double while permet de re lance le programme le jours suivant sans a avoir a le faire manuellement 
     while True :
