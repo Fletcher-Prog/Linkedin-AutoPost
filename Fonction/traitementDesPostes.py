@@ -24,7 +24,7 @@ def traitementDesPostes(lesPosteDuJour):
                 
                 mypackage.sendEmail("Relance du programme")
             
-                return -1 
+                break 
             
 
             if reponse > 0 and reponse < 4 :
